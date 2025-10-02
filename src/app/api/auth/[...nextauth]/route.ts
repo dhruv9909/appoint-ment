@@ -44,7 +44,7 @@ export const authOptions: AuthOptions = {
             },
         }),
     ],
-    session: { strategy: "jwt" as const }, // ✅ fix typing
+    session: { strategy: "jwt" as const }, //fix typing
     callbacks: {
         async jwt({ token, user }) {
             if (user) token.role = (user as any).role;

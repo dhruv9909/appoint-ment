@@ -1,26 +1,18 @@
-"use client";
 import { BusinessDashboard } from "@/components/dashboards/businessDashboard";
 import { CustomerDashboard } from "@/components/dashboards/customerDashboard";
-import { useSession } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
 
-export default function DashboardPage() {
-    const { data: session } = useSession();
-    console.log(session);
+export default async function DashboardPage() {
+    const session = await getServerSession(authOptions);
     return (
-        <>{
-        (session?.user?.role === "business")
-        ?
-        <BusinessDashboard
-            appointments={[]}
-            onAppointmentUpdate={() => { }}
-        />
-        :
-        <CustomerDashboard
-          user={session?.user}
-          businesses={[]}
-          appointments={[]}
-          onAppointmentBook={() => { }}
-        />
+        <>
+        {
+            (session?.user?.role === "business")
+                ?
+                <BusinessDashboard session={session} />
+                :
+                <CustomerDashboard session={session} />
         }
         </>
     )

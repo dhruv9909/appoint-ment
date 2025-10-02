@@ -91,20 +91,8 @@ const mockAppointments: Appointment[] = [
 ];
 
 export default function App() {
-  const [user, setUser] = useState<User | undefined>(undefined);
-// const {data: session} = useSession();
-// console.log(session);
-  // if (!user) {
-  //   return (
-  //     <div className="min-h-screen bg-background">
-  //       <AuthPage />
-  //     </div>
-  //   );
-  // }
-
   return (
     <div className="min-h-screen bg-background">
-
       {/* Main Content */}
       <main className="container mx-auto px-4 py-6">
         Home Page <Link href="/login">Login first to see your Dashboard</Link>

@@ -1,18 +1,17 @@
 "use client"
 import { Users } from 'lucide-react';
+import { signIn } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
-import { useRouter } from 'next/navigation';
-import { signIn, useSession } from 'next-auth/react';
 
 function Login() {
   const [loginForm, setLoginForm] = useState({ identifier: '', password: '', role: 'customer' });
 
   const router = useRouter();
-  // const {data: session} = useSession();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 

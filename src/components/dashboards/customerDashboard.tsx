@@ -1,3 +1,4 @@
+"use client"
 import React, { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/card';
 import { Button } from '../ui/button';
@@ -10,15 +11,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { Calendar, Clock, Search, Building2, MapPin, Users, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import type { User, Business, Appointment } from '@/app/page';
+import { Session } from 'next-auth';
 
-interface CustomerDashboardProps {
-  user?: User;
-  businesses: Business[];
-  appointments: Appointment[];
-  onAppointmentBook: (appointment: Appointment) => void;
-}
-
-export function CustomerDashboard({ user, businesses, appointments, onAppointmentBook }: CustomerDashboardProps) {
+export function CustomerDashboard({ session }: { session: Session | null }) {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [selectedBusiness, setSelectedBusiness] = useState<Business | null>(null);
@@ -28,10 +23,16 @@ export function CustomerDashboard({ user, businesses, appointments, onAppointmen
     service: '',
     notes: ''
   });
+  const [businesses, setBusinesses] = useState<Business[]>([]); // This would come from props or API
+  const [appointments, setAppointments] = useState<Appointment[]>([]); // This would come from props or API
+  const user = session?.user;
+  const onAppointmentBook = (appointment: Appointment) => {
+    setAppointments([...appointments, appointment]);
+  };
 
   const filteredBusinesses = businesses.filter(business => {
     const matchesSearch = business.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         business.description.toLowerCase().includes(searchTerm.toLowerCase());
+      business.description.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'all' || business.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
@@ -111,7 +112,7 @@ export function CustomerDashboard({ user, businesses, appointments, onAppointmen
             </div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
@@ -196,8 +197,8 @@ export function CustomerDashboard({ user, businesses, appointments, onAppointmen
                     </div>
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button 
-                          className="w-full" 
+                        <Button
+                          className="w-full"
                           onClick={() => setSelectedBusiness(business)}
                         >
                           Book Appointment

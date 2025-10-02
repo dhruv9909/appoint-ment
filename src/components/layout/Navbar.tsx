@@ -1,14 +1,12 @@
 "use client"
-
 import { Building2, LogOut, Users } from 'lucide-react'
-import React, { useContext } from 'react'
+import React from 'react'
 import { Button } from '../ui/button'
-import { AuthContext } from '@/contexts/authContext'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
+import { Session } from 'next-auth'
 
-function Navbar() {
-  const { user } = useContext(AuthContext);
+export default function Navbar({session}: {session: Session | null}) {
   // manually redirect (since redirect: false)
   const router = useRouter();
 
@@ -34,11 +32,11 @@ function Navbar() {
             <Building2 className="h-6 w-6 text-primary" />
             <h1 className="text-lg font-semibold">BookingHub</h1>
           </div>
-          {user && <div className="flex items-center gap-4">
+          {session?.user && <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4" />
-              <span className="text-sm">{user.name}</span>
-              <span className="text-xs text-muted-foreground">({user.role})</span>
+              <span className="text-sm">{session?.user?.name}</span>
+              <span className="text-xs text-muted-foreground">({session?.user?.role})</span>
             </div>
             <Button variant="ghost" size="sm" onClick={handleSignOut}>
               <LogOut className="h-4 w-4" />
@@ -50,5 +48,3 @@ function Navbar() {
     </header>
   )
 }
-
-export default Navbar
