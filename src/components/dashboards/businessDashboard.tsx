@@ -5,18 +5,13 @@ import { Button } from '../ui/button';
 import { Badge } from '../ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { Calendar, Clock, Users, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
-import type { User, Appointment } from '@/app/page';
+import { Session } from 'next-auth';
 
 interface BusinessDashboardProps {
-  user?: User;
-  appointments: Appointment[];
-  onAppointmentUpdate: (appointmentId: string, status: 'confirmed' | 'cancelled') => void;
+  session?: Session | null;
 }
 
-export function BusinessDashboard({ user, appointments, onAppointmentUpdate }: BusinessDashboardProps) {
-  const pendingAppointments = appointments.filter(apt => apt.status === 'pending');
-  const confirmedAppointments = appointments.filter(apt => apt.status === 'confirmed');
-  const totalAppointments = appointments.length;
+export function BusinessDashboard({ session }: BusinessDashboardProps) {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -69,7 +64,7 @@ export function BusinessDashboard({ user, appointments, onAppointmentUpdate }: B
             </div>
           </CardContent>
         </Card>
-        
+
         <Card>
           <CardContent className="p-6">
             <div className="flex items-center justify-between">
