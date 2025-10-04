@@ -1,5 +1,5 @@
 export const registerBusiness = async (data: any) => {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/register-business`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/registration/register-business`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ export const registerBusiness = async (data: any) => {
   };
 
 export const registerUser = async(data:any) =>{
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/register-customer`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/registration/register-customer`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -19,14 +19,3 @@ export const registerUser = async(data:any) =>{
   });
   return response.json();
 }
-
-export const login = async(data:any) =>{
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/login`, {
-    method: 'POST',
-    headers: {
-      'Application-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  return response.json();
-    }

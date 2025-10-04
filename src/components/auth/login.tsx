@@ -18,15 +18,14 @@ function Login() {
     try{const result = await signIn("credentials", {
       identifier: loginForm.identifier,
       password: loginForm.password,
-      redirect: false, // prevent auto redirect
+      redirect: true, // prevent auto redirect
+      callbackUrl: "/dashboard" // redirect to dashboard after login
     });
 
     if (result?.error) {
       console.error(result.error);
-    } else {
-      router.push("/dashboard"); // redirect after login
-      console.log(result);
-    }}catch(err){
+    }
+    }catch(err){
       console.log(err);
     }
   };

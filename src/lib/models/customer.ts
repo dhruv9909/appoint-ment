@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { models } from "mongoose";
 
 const CustomerSchema = new mongoose.Schema({
     name : {type: String, required: true},
@@ -6,6 +6,6 @@ const CustomerSchema = new mongoose.Schema({
     phone : {type: String, required: true},
 })
 
-const Customer = mongoose.model("customer", CustomerSchema);
+const Customer = models.customer || mongoose.model("customer", CustomerSchema);
 
 export default Customer;
