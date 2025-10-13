@@ -1,23 +1,11 @@
-import { Star, MapPin, Phone, Clock } from "lucide-react";
+import { BusinessProps } from "@/types/business";
+import { Clock, MapPin, Phone, Star } from "lucide-react";
+import { ImageWithFallback } from "../figma/imageWithFallback";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { ImageWithFallback } from "../figma/imageWithFallback";
-
-interface BusinessCardProps {
-  id: string;
-  name: string;
-  category: string;
-  rating: number;
-  reviewCount: number;
-  location: string;
-  description: string;
-  image: string;
-  isOpen: boolean;
-  phone: string;
-}
 
 export function BusinessCard({
-  name,
+  businessName,
   category,
   rating,
   reviewCount,
@@ -26,7 +14,7 @@ export function BusinessCard({
   image,
   isOpen,
   phone,
-}: BusinessCardProps) {
+}: BusinessProps) {
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, index) => (
       <Star
@@ -46,7 +34,7 @@ export function BusinessCard({
       <div className="relative h-48 overflow-hidden">
         <ImageWithFallback
           src={image}
-          alt={name}
+          alt={businessName}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -79,7 +67,7 @@ export function BusinessCard({
         {/* Header */}
         <div className="mb-3">
           <h3 className="mb-2 text-card-foreground group-hover:text-primary transition-colors">
-            {name}
+            {businessName}
           </h3>
           
           {/* Rating */}
@@ -117,6 +105,7 @@ export function BusinessCard({
           <Button 
             size="sm" 
             className="bg-primary hover:bg-primary/90 text-primary-foreground gap-2"
+            onClick={()=> window.open(`tel:${phone}`)}
           >
             <Phone className="w-4 h-4" />
             Call

@@ -46,7 +46,7 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
         <div>
           <h1>Business Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back, {user?.businessInfo?.businessName}
+            Welcome back, {session?.user?.businessInfo?.businessName}
           </p>
         </div>
       </div>
@@ -99,24 +99,24 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label className="text-sm font-medium">Business Name</Label>
-              <p>{user?.businessInfo?.businessName}</p>
+              <p>{session?.user?.businessInfo?.businessName}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Category</Label>
-              <p>{user?.businessInfo?.category}</p>
+              <p>{session?.user?.businessInfo?.category}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Working Hours</Label>
-              <p>{user?.businessInfo?.workingHours}</p>
+              <p>{session?.user?.businessInfo?.workingHours}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Owner Email</Label>
-              <p>{user?.email}</p>
+              <p>{session?.user?.email}</p>
             </div>
           </div>
           <div>
             <Label className="text-sm font-medium">Description</Label>
-            <p className="text-sm text-muted-foreground">{user?.businessInfo?.description}</p>
+            <p className="text-sm text-muted-foreground">{session?.user?.businessInfo?.description}</p>
           </div>
         </CardContent>
       </Card>
