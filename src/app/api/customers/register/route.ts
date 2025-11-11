@@ -1,4 +1,4 @@
-import Customer from "@/lib/models/customer";
+import Customer from "@/lib/models/customerProfile";
 import { connectDb } from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";

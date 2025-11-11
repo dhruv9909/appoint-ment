@@ -1,5 +1,5 @@
 export const registerBusiness = async (data: any) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses/register`, {
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

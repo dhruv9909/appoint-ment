@@ -1,4 +1,4 @@
-import Business from "@/lib/models/business";
+import Business from "@/lib/models/businessProfile";
 import { connectDb } from "@/lib/mongodb";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";

@@ -1,10 +1,11 @@
 import mongoose from "mongoose";
 
 const BusinessSchema = new mongoose.Schema({
+    userId: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     ownerName: { type: String, required: true },
-    email: { type: String, required: true, unique: true },
-    phone: { type: String, required: true },
-    password: { type: String, required: true },
+    // email: { type: String, unique: true, required: true },
+    // phone: { type: String, unique: true, required: true },
+    // password: { type: String, required: true },
     businessName: { type: String, required: true },
     category: { type: String, required: true },
     openingHours: { type: String, required: true },

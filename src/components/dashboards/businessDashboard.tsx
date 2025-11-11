@@ -46,8 +46,24 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
         <div>
           <h1>Business Dashboard</h1>
           <p className="text-muted-foreground">
-            Welcome back, {session?.user?.businessInfo?.businessName}
+            Welcome back, {session?.user?.name}
           </p>
+        </div>
+        <div>
+          <input
+          type='file'
+          placeholder="Upload images..."
+          onChange={async (e) => {
+            const files = e.target.files;
+            if (files) {
+              const res = await fetch('/api/businesses/images', {
+                method: 'POST',
+                body: files[0],
+              });
+              console.log("response2",await res.json());
+            }
+          }}
+          />
         </div>
       </div>
 
@@ -58,7 +74,7 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Appointments</p>
-                <p className="text-2xl font-semibold">{totalAppointments}</p>
+                {/* <p className="text-2xl font-semibold">{totalAppointments}</p> */}
               </div>
               <Calendar className="h-8 w-8 text-blue-600" />
             </div>
@@ -70,7 +86,7 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Pending Requests</p>
-                <p className="text-2xl font-semibold">{pendingAppointments.length}</p>
+                {/* <p className="text-2xl font-semibold">{pendingAppointments.length}</p> */}
               </div>
               <AlertCircle className="h-8 w-8 text-yellow-600" />
             </div>
@@ -82,7 +98,7 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Confirmed Today</p>
-                <p className="text-2xl font-semibold">{confirmedAppointments.length}</p>
+                {/* <p className="text-2xl font-semibold">{confirmedAppointments.length}</p> */}
               </div>
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
@@ -130,7 +146,7 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          {appointments.length === 0 ? (
+          {/* {appointments.length === 0 ? (
             <div className="text-center py-8">
               <Calendar className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-medium mb-2">No appointments yet</h3>
@@ -200,7 +216,7 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
                 ))}
               </TableBody>
             </Table>
-          )}
+          )} */}
         </CardContent>
       </Card>
     </div>

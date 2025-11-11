@@ -31,7 +31,7 @@ function RegisterBusiness() {
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    await registerBusiness(registerForm);
+    await registerBusiness({...registerForm, role: 'business'});
   }
 
   return (

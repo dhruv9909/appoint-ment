@@ -8,6 +8,7 @@ export default async function DashboardPage() {
     if(!session){
         redirect("/login");
     }
+    console.log("session2", session)
     return (
         <>
         {
