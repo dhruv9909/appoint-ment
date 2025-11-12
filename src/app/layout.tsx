@@ -1,6 +1,7 @@
 import Navbar from "@/components/layout/Navbar";
-import "./globals.css";
+import { UserProvider } from "@/contexts/UserContext";
 import { handleServerSession } from "@/lib/auth";
+import "./globals.css";
 
 export default async function RootLayout({
   children,
@@ -11,8 +12,10 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className="antialiased dark">
-        <Navbar session={session} />
-        {children}
+        <UserProvider>
+          <Navbar session={session} />
+          {children}
+        </UserProvider>
       </body>
     </html>
   );

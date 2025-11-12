@@ -1,14 +1,33 @@
 "use client"
+import { useUser } from '@/contexts/UserContext'
+import { fetchProfile } from '@/services/httpServices'
 import { Building2, LogOut, Users } from 'lucide-react'
 import { Session } from 'next-auth'
 import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
-import { Button } from '../ui/button'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { useEffect } from 'react'
+import { Button } from '../ui/button'
 
 export default function Navbar({ session }: { session: Session | null }) {
   // manually redirect (since redirect: false)
   const router = useRouter();
+
+  const userValues = useUser();
+
+
+  const loadUserProfile = async () => {
+    try {
+      const res = await fetchProfile();
+      userValues?.setUser(res.data);
+    } catch (error) {
+      console.error("Error loading user profile:", error);
+    }
+  }
+
+  useEffect(() => {
+    loadUserProfile()
+  }, [session, userValues?.setUser])
 
   const handleSignOut = async () => {
     try {

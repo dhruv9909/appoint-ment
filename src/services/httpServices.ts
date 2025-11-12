@@ -29,3 +29,18 @@ export const fetchBusinesses = async () => {
   });
   return response.json();
 }
+
+export const fetchProfile = async () => {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    return response.json();
+  } catch (error) {
+    console.error("Error fetching profile:", error);
+    throw error;
+  }
+}
