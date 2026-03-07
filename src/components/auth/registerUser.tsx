@@ -12,7 +12,8 @@ function RegisterUser() {
   const [registerForm, setRegisterForm] = useState({
     name: '',
     phone: '',
-    password: ''
+    password: '',
+    role: 'customer',
   });
 
   const handleSubmit = async(e:React.FormEvent) =>{
