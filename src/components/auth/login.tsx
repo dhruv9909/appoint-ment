@@ -7,6 +7,7 @@ import { Button } from '../ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
 import { Input } from '../ui/input';
 import { Label } from '../ui/label';
+import { toast } from 'sonner';
 
 function Login() {
   const [loginForm, setLoginForm] = useState({ identifier: '', password: '', role: 'customer' });
@@ -15,17 +16,18 @@ function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    try{const result = await signIn("credentials", {
-      identifier: loginForm.identifier,
-      password: loginForm.password,
-      redirect: true, // prevent auto redirect
-      callbackUrl: "/dashboard" // redirect to dashboard after login
-    });
-
-    if (result?.error) {
-      console.error(result.error);
-    }
-    }catch(err){
+    try {
+      const result = await signIn("credentials", {
+        identifier: loginForm.identifier,
+        password: loginForm.password,
+        redirect: false, // prevent auto redirect
+      });
+console.log("result-data",result)
+      if (result?.error) {
+        toast.error(result.error);
+        console.error("errors",result.error);
+      }
+    } catch (err) {
       console.log(err);
     }
   };

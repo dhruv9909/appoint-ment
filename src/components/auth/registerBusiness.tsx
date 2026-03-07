@@ -14,12 +14,12 @@ import { TimePicker } from '@mui/x-date-pickers/TimePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { registerBusiness } from '@/services/httpServices';
+import { registerUser } from '@/services/httpServices';
 
 function RegisterBusiness() {
 
   const [registerForm, setRegisterForm] = useState({
-    ownerName: '',
+    name: '',
     email: '',
     phone: '',
     password: '',
@@ -31,9 +31,10 @@ function RegisterBusiness() {
 
   const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    await registerBusiness({...registerForm, role: 'business'});
+    const res = await registerUser({...registerForm, role: 'business'});
+    console.log("res2", res)
   }
-
+console.log("data-2", registerForm)
   return (
     <div><Card>
       <CardHeader>
@@ -45,12 +46,12 @@ function RegisterBusiness() {
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="owner-name">Your Name</Label>
+            <Label htmlFor="name">Your Name</Label>
             <Input
-              id="owner-name"
+              id="name"
               placeholder="Enter your full name"
-              value={registerForm.ownerName}
-              onChange={(e) => setRegisterForm(prev => ({ ...prev, ownerName: e.target.value }))}
+              value={registerForm.name}
+              onChange={(e) => setRegisterForm(prev => ({ ...prev, name: e.target.value }))}
               required
             />
           </div>

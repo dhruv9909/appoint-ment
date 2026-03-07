@@ -17,7 +17,8 @@ function RegisterUser() {
 
   const handleSubmit = async(e:React.FormEvent) =>{
     e.preventDefault();
-    await registerUser(registerForm);
+    const res = await registerUser(registerForm);
+    console.log("res2",res);
   }
 
   return (

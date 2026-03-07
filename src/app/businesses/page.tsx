@@ -4,7 +4,9 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { fetchBusinesses } from "@/services/httpServices";
 import { BusinessProps } from "@/types/business";
+import { useQuery } from "@tanstack/react-query";
 import { Filter, Grid, List, MapPin, Search } from "lucide-react";
 import { useEffect, useState } from "react";
 
@@ -12,22 +14,29 @@ const categories = ["All", "Restaurant", "Coffee Shop", "Fitness", "Spa", "Books
 
 export default function App() {
 
-  const [businesses, setBusinesses] = useState<BusinessProps[]>([]);
+  const { data: businesses, isLoading, isError } = useQuery({
+    queryKey: ['businesses'],
+    queryFn: fetchBusinesses,
+  });
 
-  const fetchBusinesses = async () => {
-    try {
-    const res = await fetch(`/api/businesses`);
-    const data = await res.json();
-    console.log("data2",data?.data)
-    setBusinesses(data?.data);
-  } catch (error) {
-    console.error("Error fetching businesses:", error);
-  }
-}
+  console.log("businesses", isLoading, isError, businesses);
 
-  useEffect(() => {
-    fetchBusinesses();
-  }, [])
+  // const [businesses, setBusinesses] = useState<BusinessProps[]>([]);
+
+//   const fetchBusinesses = async () => {
+//     try {
+//     const res = await fetch(`/api/businesses`);
+//     const data = await res.json();
+//     console.log("data2",data?.data)
+//     setBusinesses(data?.data);
+//   } catch (error) {
+//     console.error("Error fetching businesses:", error);
+//   }
+// }
+
+  // useEffect(() => {
+  //   fetchBusinesses();
+  // }, [])
 
   return (
     <div className="min-h-screen bg-background text-foreground dark">
@@ -112,7 +121,7 @@ export default function App() {
 
         {/* Business Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {businesses?.map((business) => (
+          {businesses?.data?.map((business) => (
             <BusinessCard key={business?._id} {...business} />
           ))}
         </div>
