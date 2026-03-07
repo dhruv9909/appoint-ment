@@ -30,6 +30,7 @@ export function BusinessCard({
 
   return (
     <div className="group bg-card border border-border rounded-xl overflow-hidden hover:shadow-2xl hover:shadow-black/20 transition-all duration-300 hover:-translate-y-1">
+      
       {/* Image Container */}
       <div className="relative h-48 overflow-hidden">
         <ImageWithFallback
