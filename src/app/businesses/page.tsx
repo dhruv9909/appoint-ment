@@ -8,7 +8,7 @@ import { fetchBusinesses } from "@/services/httpServices";
 import { BusinessProps } from "@/types/business";
 import { useQuery } from "@tanstack/react-query";
 import { Filter, Grid, List, MapPin, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { JSX, useEffect, useState } from "react";
 
 const categories = ["All", "Restaurant", "Coffee Shop", "Fitness", "Spa", "Bookstore", "Office Space"];
 
@@ -121,7 +121,7 @@ export default function App() {
 
         {/* Business Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {businesses?.data?.map((business) => (
+          {businesses?.data?.map((business: JSX.IntrinsicAttributes & BusinessProps) => (
             <BusinessCard key={business?._id} {...business} />
           ))}
         </div>
