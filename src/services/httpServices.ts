@@ -1,35 +1,34 @@
+import axios from "axios";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const registerUser = async (data: any) => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/register`, {
-    method: 'POST',
+  const response = await axios.post(`${API_URL}/api/auth/register`, data, {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
-    body: JSON.stringify(data),
   });
-  return response.json();
+
+  return response.data;
 };
 
 export const fetchBusinesses = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/businesses`, {
-    method: 'GET',
+  const response = await axios.get(`${API_URL}/api/businesses`, {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   });
-  return response.json();
-}
 
+  return response.data;
+};
 export const fetchProfile = async () => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/profile`, {
-      method: 'GET',
+    const response = await axios.get(`${API_URL}/api/auth/profile`, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    return response.json();
+    return response.data();
   } catch (error) {
-    console.error("Error fetching profile:", error);
     throw error;
   }
 }
