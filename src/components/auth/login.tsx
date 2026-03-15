@@ -22,10 +22,14 @@ function Login() {
         password: loginForm.password,
         redirect: false, // prevent auto redirect
       });
-console.log("result-data",result)
+      if (result?.ok) {
+        console.log("result-data", result)
+        toast.success("Login successful!");
+        router.push("/dashboard");
+      }
       if (result?.error) {
         toast.error(result.error);
-        console.error("errors",result.error);
+        console.error("errors", result.error);
       }
     } catch (err) {
       console.log(err);
