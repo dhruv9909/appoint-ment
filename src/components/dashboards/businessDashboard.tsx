@@ -6,12 +6,16 @@ import { Badge } from '../ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { Calendar, Clock, Users, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { Session } from 'next-auth';
+import { useUser } from '@/contexts/UserContext';
+import { formatTime } from '@/lib/utils';
 
 interface BusinessDashboardProps {
   session?: Session | null;
 }
 
 export function BusinessDashboard({ session }: BusinessDashboardProps) {
+
+  const { user } = useUser();
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -40,31 +44,13 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
   };
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col gap-6 p-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1>Business Dashboard</h1>
-          <p className="text-muted-foreground">
-            Welcome back, {session?.user?.name}
-          </p>
-        </div>
-        <div>
-          <input
-          type='file'
-          placeholder="Upload images..."
-          onChange={async (e) => {
-            const files = e.target.files;
-            if (files) {
-              const res = await fetch('/api/businesses/images', {
-                method: 'POST',
-                body: files[0],
-              });
-              console.log("response2",await res.json());
-            }
-          }}
-          />
-        </div>
+      <div>
+        <h1>Business Dashboard</h1>
+        <p className="text-muted-foreground">
+          Welcome back, {session?.user?.name}
+        </p>
       </div>
 
       {/* Stats Cards */}
@@ -74,7 +60,7 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Total Appointments</p>
-                {/* <p className="text-2xl font-semibold">{totalAppointments}</p> */}
+                <p className="text-2xl font-semibold">0</p>
               </div>
               <Calendar className="h-8 w-8 text-blue-600" />
             </div>
@@ -86,7 +72,7 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Pending Requests</p>
-                {/* <p className="text-2xl font-semibold">{pendingAppointments.length}</p> */}
+                <p className="text-2xl font-semibold">0</p>
               </div>
               <AlertCircle className="h-8 w-8 text-yellow-600" />
             </div>
@@ -98,7 +84,7 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Confirmed Today</p>
-                {/* <p className="text-2xl font-semibold">{confirmedAppointments.length}</p> */}
+                <p className="text-2xl font-semibold">0</p>
               </div>
               <CheckCircle className="h-8 w-8 text-green-600" />
             </div>
@@ -115,24 +101,41 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label className="text-sm font-medium">Business Name</Label>
-              <p>{session?.user?.businessInfo?.businessName}</p>
+              <p>{user?.businessName}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Category</Label>
-              <p>{session?.user?.businessInfo?.category}</p>
+              <p>{user?.category}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Working Hours</Label>
-              <p>{session?.user?.businessInfo?.workingHours}</p>
+              <p>{`${formatTime(new Date(user?.openingHours || ''))} - ${formatTime(new Date(user?.closingHours || ''))}`}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Owner Email</Label>
               <p>{session?.user?.email}</p>
             </div>
+            <div className='flex flex-col'>
+              <Label className="text-sm font-medium">Upload Image</Label>
+              <input
+                type='file'
+                placeholder="Upload images..."
+                // onChange={async (e) => {
+                //   const files = e.target.files;
+                //   if (files) {
+                //     const res = await fetch('/api/businesses/images', {
+                //       method: 'POST',
+                //       body: files[0],
+                //     });
+                //     console.log("response2", await res.json());
+                //   }
+                // }}
+              />
+            </div>
           </div>
           <div>
             <Label className="text-sm font-medium">Description</Label>
-            <p className="text-sm text-muted-foreground">{session?.user?.businessInfo?.description}</p>
+            <p className="text-sm text-muted-foreground">--</p>
           </div>
         </CardContent>
       </Card>

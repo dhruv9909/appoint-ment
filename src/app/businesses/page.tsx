@@ -121,7 +121,7 @@ export default function App() {
 
         {/* Business Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {businesses?.data?.map((business) => (
+          {businesses?.data?.map((business:BusinessProps) => (
             <BusinessCard key={business?._id} {...business} />
           ))}
         </div>
