@@ -6,12 +6,15 @@ import { Badge } from '../ui/badge';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '../ui/table';
 import { Calendar, Clock, Users, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { Session } from 'next-auth';
+import { useUser } from '@/contexts/UserContext';
 
 interface BusinessDashboardProps {
   session?: Session | null;
 }
 
 export function BusinessDashboard({ session }: BusinessDashboardProps) {
+
+  const {user} = useUser();
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -115,15 +118,15 @@ export function BusinessDashboard({ session }: BusinessDashboardProps) {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <Label className="text-sm font-medium">Business Name</Label>
-              <p>{session?.user?.businessInfo?.businessName}</p>
+              <p>{user?.businessName}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Category</Label>
-              <p>{session?.user?.businessInfo?.category}</p>
+              <p>{user?.category}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Working Hours</Label>
-              <p>{session?.user?.businessInfo?.workingHours}</p>
+              <p>{`${user?.openingHours} - ${user?.closingHours}`}</p>
             </div>
             <div>
               <Label className="text-sm font-medium">Owner Email</Label>

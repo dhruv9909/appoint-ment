@@ -20,12 +20,13 @@ function Login() {
       const result = await signIn("credentials", {
         identifier: loginForm.identifier,
         password: loginForm.password,
-        redirect: false, // prevent auto redirect
+        redirect: true, // prevent auto redirect
+        callbackUrl: "/dashboard"
       });
       if (result?.ok) {
         console.log("result-data", result)
         toast.success("Login successful!");
-        router.push("/dashboard");
+        // router.push("/dashboard");
       }
       if (result?.error) {
         toast.error(result.error);

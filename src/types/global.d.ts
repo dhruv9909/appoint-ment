@@ -19,3 +19,11 @@ declare module "next-auth" {
         } & DefaultSession["user"];
     }
 }
+
+// ← just append this block
+declare module "next-auth/jwt" {
+    interface JWT {
+        id?: string;
+        role?: "customer" | "business" | null;
+    }
+}

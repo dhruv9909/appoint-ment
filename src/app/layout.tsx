@@ -1,9 +1,8 @@
 import Navbar from "@/components/layout/Navbar";
-import QueryProvider from "@/components/layout/QueryProvider";
-import { UserProvider } from "@/contexts/UserContext";
 import { handleServerSession } from "@/lib/auth";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import Providers from "@/components/layout/Providers";
 
 export default async function RootLayout({
   children,
@@ -15,12 +14,10 @@ export default async function RootLayout({
     <html lang="en">
       <body className="antialiased dark">
         <Toaster position="top-right" /> {/* Add Toaster here */}
-        <QueryProvider>
-          <UserProvider>
-            <Navbar session={session} />
+        <Providers>
+            <Navbar />
             {children}
-          </UserProvider>
-        </QueryProvider>
+        </Providers>
       </body>
     </html>
   );
